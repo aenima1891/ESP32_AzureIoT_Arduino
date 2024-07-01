@@ -1055,7 +1055,10 @@ static void mqtt_notification_callback(MQTT_MESSAGE_HANDLE msgHandle, void* call
                             DLIST_ENTRY saveListEntry;
                             saveListEntry.Flink = dev_twin_item->Flink;
                             MQTT_DEVICE_TWIN_ITEM* msg_entry = containingRecord(dev_twin_item, MQTT_DEVICE_TWIN_ITEM, entry);
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
                             if (request_id == msg_entry->packet_id)
+#pragma GCC diagnostic pop
                             {
                                 (void)DList_RemoveEntryList(dev_twin_item);
                                 if (msg_entry->device_twin_msg_type == RETRIEVE_PROPERTIES)
